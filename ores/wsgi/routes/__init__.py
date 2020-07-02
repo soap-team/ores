@@ -2,7 +2,7 @@ import os
 
 from flask import render_template, request, send_file
 
-from . import ui, v1, v2, v3, versions
+from . import ui, v1, v2, v3, fandom, versions
 
 PWD = os.path.dirname(os.path.abspath(__file__))
 GEAR_FAVICON = os.path.join(PWD, "../static/favicon/gear/favicon.ico")
@@ -33,5 +33,6 @@ def configure(config, bp, score_processor):
     bp = v1.configure(config, bp, score_processor)
     bp = v2.configure(config, bp, score_processor)
     bp = v3.configure(config, bp, score_processor)
+    bp = fandom.configure(config, bp, score_processor)
 
     return bp
