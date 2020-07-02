@@ -4,9 +4,9 @@ ores:
   wsgi:
     application_root: ""
     url_prefix: ""
-    scheme: 'http'
-    error_host: 'https://www.wikimedia.org'
-    error_alt: 'Wikimedia'
+    scheme: 'https'
+    error_host: 'https://www.fandom.com'
+    error_alt: 'Fandom'
   home:
     footer: >
       Hosted on localhost &amp; written in
@@ -60,6 +60,7 @@ scoring_systems:
     score_cache: no_cache
     scoring_contexts:
       - testwiki
+      - en
     timeout: 15 # seconds
     connections_per_ip: 4
     connections_per_ip_hard: 7
@@ -95,14 +96,32 @@ scoring_contexts:
     precache:
       revid:
         "on": ['edit']
+  en:
+    extractor: en_extractor
+    scorer_models:
+      revid: en_revid
+    precache:
+      revid:
+        "on": ['edit']
 
 # Available feature extractors
 extractors:
+  defaults:
+    class: revscoring.extractors.api.Extractor
+    user_agent: Cynthia SOAP bot (mw:ORES) User:Noreplyz
+    timeout: 5
   testwiki_offline:
     class: revscoring.extractors.OfflineExtractor
+  en_extractor:
+    host: https://aphmau.fandom.com
+    api_path: /api.php
 
 # Scorer models
 scorer_models:
+  defaults:
+    class: revscoring.Model
   testwiki_revid:
     class: ores.scoring.models.RevIdScorer
     version: 0.0.0
+  en_revid:
+    model_file: ../../cynthia/classifier/damaging-2020.model
