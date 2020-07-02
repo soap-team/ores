@@ -60,7 +60,7 @@ scoring_systems:
     score_cache: no_cache
     scoring_contexts:
       - testwiki
-      - en
+      - fandom
     timeout: 15 # seconds
     connections_per_ip: 4
     connections_per_ip_hard: 7
@@ -96,10 +96,10 @@ scoring_contexts:
     precache:
       revid:
         "on": ['edit']
-  en:
-    extractor: en_extractor
+  fandom:
+    extractor: fandom_extractor
     scorer_models:
-      revid: en_revid
+      revid: fandom_damaging
     precache:
       revid:
         "on": ['edit']
@@ -112,7 +112,7 @@ extractors:
     timeout: 5
   testwiki_offline:
     class: revscoring.extractors.OfflineExtractor
-  en_extractor:
+  fandom_extractor:
     host: https://aphmau.fandom.com
     api_path: /api.php
 
@@ -123,5 +123,5 @@ scorer_models:
   testwiki_revid:
     class: ores.scoring.models.RevIdScorer
     version: 0.0.0
-  en_revid:
+  fandom_damaging:
     model_file: ../../cynthia/classifier/damaging-2020.model
